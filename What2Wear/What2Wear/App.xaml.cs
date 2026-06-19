@@ -9,7 +9,7 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new MainPage()) { Title = "What2Wear" };
+            return new Window(new AppShell()) { Title = "What2Wear" };
         }
     }
 }

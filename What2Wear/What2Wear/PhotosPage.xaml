@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="What2Wear.PhotosPage" 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="My Wardrobe" 
+    BackgroundColor="#FFFFFF">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+        <!-- Premium Header with Gold Gradient -->
+        <Grid Grid.Row="0" Padding="20,15" BackgroundColor="#D4AF37" ColumnDefinitions="*,Auto">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="My Wardrobe Gallery" 
+                    FontSize="24" 
+                    FontAttributes="Bold" 
+                    TextColor="#FFFFFF" />
+                <Label x:Name="PhotoCountLabel" 
+                    Text="0 Items" 
+                    FontSize="12" 
+                    TextColor="#F5F5F5" />
+            </VerticalStackLayout>
+            <Image Grid.Column="1" 
+                Source="https://cdn-icons-png.flaticon.com/512/3143/3143615.png" 
+                WidthRequest="40" 
+                HeightRequest="40" 
+                Aspect="AspectFit" />
+        </Grid>
+
+        <!-- Separator Line -->
+        <BoxView Grid.Row="0" 
+            Grid.RowSpan="2" 
+            HeightRequest="2" 
+            BackgroundColor="#C0C0C0" 
+            VerticalOptions="End" />
+
+        <!-- Gallery Grid View -->
+        <RefreshView Grid.Row="1" BackgroundColor="#FFFFFF">
+            <CollectionView x:Name="PhotosCollectionView" 
+                SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                        HorizontalItemSpacing="12" 
+                        VerticalItemSpacing="12" 
+                        Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Premium Photo Card -->
+                        <Frame CornerRadius="15" Padding="0" HasShadow="True" BackgroundColor="#FFFFFF" Margin="0">
+                            <Grid ColumnDefinitions="*" RowDefinitions="150,50,Auto">
+                                <!-- Photo Image -->
+                                <Image Source="{Binding Url}" Aspect="AspectFill" Grid.Row="0" />
+
+                                <!-- Gold Bar with Category -->
+                                <StackLayout Grid.Row="1" BackgroundColor="#D4AF37" Padding="10,5" Spacing="2">
+                                    <Label Text="{Binding ClothingType}" TextColor="#FFFFFF" FontAttributes="Bold" FontSize="14" LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding CreatedAt, StringFormat='{0:MMM dd}'}" TextColor="#F5F5F5" FontSize="11" />
+                                </StackLayout>
+
+                                <!-- Tags and Info -->
+                                <StackLayout Grid.Row="2" Padding="10" BackgroundColor="#F9F9F9" Spacing="5">
+                                    <Label Text="{Binding Tags, StringFormat='Tags: {0}'}" TextColor="#666666" FontSize="10" LineBreakMode="TailTruncation" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Empty State Message -->
+        <VerticalStackLayout x:Name="EmptyStateContainer" 
+            Grid.Row="1" 
+            Spacing="15" 
+            Padding="30" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center">
+            <Label Text="👗" 
+                FontSize="60" 
+                HorizontalOptions="Center" />
+            <Label Text="No Photos Yet" 
+                FontSize="22" 
+                FontAttributes="Bold" 
+                TextColor="#D4AF37" 
+                HorizontalOptions="Center" />
+            <Label Text="Start capturing your wardrobe collection" 
+                FontSize="14" 
+                TextColor="#999999" 
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Premium Bottom Navigation Bar -->
+        <Grid Grid.Row="2" 
+            Padding="12" 
+            BackgroundColor="#FFFFFF" 
+            ColumnDefinitions="*,*">
+            <!-- Take Photo Button - Primary Fluent Gold -->
+            <Button Grid.Column="0" 
+                x:Name="CameraButton" 
+                Text="📷 Take Photo" 
+                BackgroundColor="#D4AF37" 
+                TextColor="#FFFFFF" 
+                Clicked="OnCameraClicked" 
+                FontAttributes="Bold" 
+                CornerRadius="8" 
+                Padding="10,12" 
+                Margin="0,0,6,0" />
+
+            <!-- Logout Button - Secondary Fluent -->
+            <Button Grid.Column="1" 
+                x:Name="LogoutButton" 
+                Text="🚪 Logout" 
+                BackgroundColor="#C0C0C0" 
+                TextColor="#333333" 
+                Clicked="OnLogoutClicked" 
+                FontAttributes="Bold" 
+                CornerRadius="8" 
+                Padding="10,12" 
+                Margin="6,0,0,0" />
+        </Grid>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator x:Name="LoadingIndicator" 
+            IsRunning="False" 
+            IsVisible="False" 
+            Color="#D4AF37" 
+            Grid.Row="0" 
+            Grid.RowSpan="3" />
+    </Grid>
+</ContentPage>

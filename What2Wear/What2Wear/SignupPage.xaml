@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="What2Wear.SignupPage" 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Sign Up" 
+    BackgroundColor="{StaticResource Background}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary Source="Resources/Colors.xaml" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*" Padding="0">
+        <!-- Premium Header with Gradient -->
+        <Grid Grid.Row="0" Padding="20,15">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource PrimaryGold}" Offset="0.0" />
+                    <GradientStop Color="{StaticResource SeamGold}" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Label Text="What2Wear" 
+                FontSize="28" 
+                FontAttributes="Bold" 
+                TextColor="{StaticResource Cream}" 
+                HorizontalOptions="Center" />
+        </Grid>
+
+        <!-- Form Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="30" Spacing="16" VerticalOptions="Start" BackgroundColor="{StaticResource Background}">
+                <Label Text="Create Account" 
+                    FontSize="24" 
+                    FontAttributes="Bold" 
+                    TextColor="{StaticResource TextPrimary}" 
+                    HorizontalOptions="Center" />
+
+                <Label Text="Join our fashion community" 
+                    FontSize="14" 
+                    TextColor="{StaticResource TextSecondary}" 
+                    HorizontalOptions="Center" />
+
+                <!-- Full Name Input -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Full Name" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Frame CornerRadius="8" Padding="12" HasShadow="False" BackgroundColor="{StaticResource CreamLight}">
+                        <Entry x:Name="FullNameEntry" 
+                            Placeholder="Enter your full name" 
+                            PlaceholderColor="{StaticResource TextTertiary}" 
+                            TextColor="{StaticResource TextPrimary}"
+                            BackgroundColor="Transparent"
+                            FontSize="14" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Email Input -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Email" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Frame CornerRadius="8" Padding="12" HasShadow="False" BackgroundColor="{StaticResource CreamLight}">
+                        <Entry x:Name="EmailEntry" 
+                            Placeholder="Enter your email" 
+                            PlaceholderColor="{StaticResource TextTertiary}" 
+                            Keyboard="Email" 
+                            TextColor="{StaticResource TextPrimary}"
+                            BackgroundColor="Transparent"
+                            FontSize="14" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Password Input -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Password" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Frame CornerRadius="8" Padding="12" HasShadow="False" BackgroundColor="{StaticResource CreamLight}">
+                        <Entry x:Name="PasswordEntry" 
+                            Placeholder="Password (min 6 chars)" 
+                            PlaceholderColor="{StaticResource TextTertiary}" 
+                            IsPassword="True" 
+                            TextColor="{StaticResource TextPrimary}"
+                            BackgroundColor="Transparent"
+                            FontSize="14" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Confirm Password Input -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Confirm Password" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        TextColor="{StaticResource TextPrimary}" />
+
+                    <Frame CornerRadius="8" Padding="12" HasShadow="False" BackgroundColor="{StaticResource CreamLight}">
+                        <Entry x:Name="ConfirmPasswordEntry" 
+                            Placeholder="Confirm your password" 
+                            PlaceholderColor="{StaticResource TextTertiary}" 
+                            IsPassword="True" 
+                            TextColor="{StaticResource TextPrimary}"
+                            BackgroundColor="Transparent"
+                            FontSize="14" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Error Label -->
+                <Label x:Name="ErrorLabel" 
+                    Text="" 
+                    TextColor="{StaticResource Error}" 
+                    FontSize="12" 
+                    IsVisible="False" 
+                    HorizontalOptions="Center" />
+
+                <!-- Loading Indicator -->
+                <ActivityIndicator x:Name="LoadingIndicator" 
+                    IsRunning="False" 
+                    IsVisible="False" 
+                    Color="{StaticResource PrimaryGold}" />
+
+                <!-- Signup Button -->
+                <Button x:Name="SignupButton" 
+                    Text="Create Account" 
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Clicked="OnSignupClicked" 
+                    Margin="0,10" />
+
+                <!-- Login Link -->
+                <Button x:Name="LoginButton" 
+                    Text="Already have an account? Sign In" 
+                    Style="{StaticResource OutlineButtonStyle}"
+                    Clicked="OnLoginClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

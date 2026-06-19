@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Color Palette - Premium Gold, Ink, Cream with Seam Gold Gradient -->
+
+    <!-- Primary Colors -->
+    <Color x:Key="PrimaryGold">#A9760F</Color>
+    <Color x:Key="SeamGold">#C9982F</Color>
+    <Color x:Key="Ink">#1A1A1A</Color>
+    <Color x:Key="Cream">#F3EEE4</Color>
+
+    <!-- Tints and Shades -->
+    <Color x:Key="GoldLight">#D4AF37</Color>
+    <Color x:Key="GoldDark">#8B6914</Color>
+    <Color x:Key="InkLight">#333333</Color>
+    <Color x:Key="InkMuted">#666666</Color>
+    <Color x:Key="CreamLight">#F9F7F3</Color>
+    <Color x:Key="CreamDark">#E8E2D6</Color>
+
+    <!-- Accent Colors -->
+    <Color x:Key="Success">#4CAF50</Color>
+    <Color x:Key="Warning">#FF9800</Color>
+    <Color x:Key="Error">#F44336</Color>
+    <Color x:Key="Info">#2196F3</Color>
+
+    <!-- Neutral Colors -->
+    <Color x:Key="Border">#D9D0C3</Color>
+    <Color x:Key="Background">#F3EEE4</Color>
+    <Color x:Key="Surface">#FFFFFF</Color>
+    <Color x:Key="TextPrimary">#1A1A1A</Color>
+    <Color x:Key="TextSecondary">#666666</Color>
+    <Color x:Key="TextTertiary">#999999</Color>
+    <Color x:Key="Disabled">#CCCCCC</Color>
+
+    <!-- Typography -->
+    <x:Double x:Key="FontSizeMicro">10</x:Double>
+    <x:Double x:Key="FontSizeSmall">12</x:Double>
+    <x:Double x:Key="FontSizeBase">14</x:Double>
+    <x:Double x:Key="FontSizeLarge">16</x:Double>
+    <x:Double x:Key="FontSizeXLarge">18</x:Double>
+    <x:Double x:Key="FontSizeTitle">24</x:Double>
+    <x:Double x:Key="FontSizeHeading">28</x:Double>
+
+    <!-- Spacing -->
+    <x:Double x:Key="Spacing4">4</x:Double>
+    <x:Double x:Key="Spacing8">8</x:Double>
+    <x:Double x:Key="Spacing12">12</x:Double>
+    <x:Double x:Key="Spacing16">16</x:Double>
+    <x:Double x:Key="Spacing20">20</x:Double>
+    <x:Double x:Key="Spacing24">24</x:Double>
+
+    <!-- Corner Radius -->
+    <x:Double x:Key="CornerRadiusSmall">4</x:Double>
+    <x:Double x:Key="CornerRadiusMedium">8</x:Double>
+    <x:Double x:Key="CornerRadiusLarge">12</x:Double>
+    <x:Double x:Key="CornerRadiusXLarge">16</x:Double>
+
+    <!-- Styles for Headers -->
+    <Style x:Key="HeadingStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeHeading}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+    </Style>
+
+    <Style x:Key="SubheadingStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+    </Style>
+
+    <Style x:Key="BodyTextStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeBase}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+    </Style>
+
+    <Style x:Key="CaptionStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+    </Style>
+
+    <!-- Button Styles -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryGold}" />
+        <Setter Property="TextColor" Value="{StaticResource Cream}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource SeamGold}" />
+        <Setter Property="TextColor" Value="{StaticResource Ink}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="OutlineButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryGold}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="BorderColor" Value="{StaticResource PrimaryGold}" />
+        <Setter Property="BorderWidth" Value="2" />
+    </Style>
+
+    <!-- Frame Styles -->
+    <Style x:Key="CardStyle" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusLarge}" />
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="Padding" Value="{StaticResource Spacing16}" />
+        <Setter Property="BorderColor" Value="{StaticResource Border}" />
+    </Style>
+
+    <Style x:Key="GoldCardStyle" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="{StaticResource Cream}" />
+        <Setter Property="BorderColor" Value="{StaticResource SeamGold}" />
+        <Setter Property="CornerRadius" Value="{StaticResource CornerRadiusLarge}" />
+        <Setter Property="Padding" Value="{StaticResource Spacing16}" />
+    </Style>
+
+    <!-- Entry Styles -->
+    <Style x:Key="InputEntryStyle" TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="{StaticResource CreamLight}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextTertiary}" />
+    </Style>
+
+</ResourceDictionary>

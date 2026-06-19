@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="What2Wear.CapturePhotoPage" 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Add to Wardrobe" 
+    BackgroundColor="#FFFFFF">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+        <!-- Premium Header -->
+        <Grid Grid.Row="0" Padding="20,15" BackgroundColor="#D4AF37">
+            <Label Text="Capture Your Style" 
+                FontSize="20" 
+                FontAttributes="Bold" 
+                TextColor="#FFFFFF" />
+        </Grid>
+
+        <!-- Form Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="16">
+                <!-- Photo Preview Frame with Fluent Design -->
+                <Frame CornerRadius="15" 
+                    Padding="0" 
+                    HasShadow="True" 
+                    BackgroundColor="#F9F9F9">
+                    <Grid ColumnDefinitions="*" RowDefinitions="200,*">
+                        <Image x:Name="PhotoImage" 
+                            Aspect="AspectFill" 
+                            Grid.Row="0" 
+                            BackgroundColor="#E8E8E8" />
+                        <Label Grid.Row="0" 
+                            Text="👗" 
+                            FontSize="80" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            IsVisible="True" 
+                            x:Name="NoPhotoLabel" 
+                            TextColor="#D4AF37" />
+                        <Label Grid.Row="1" 
+                            Text="No photo selected yet" 
+                            TextColor="#999999" 
+                            FontSize="12" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            x:Name="NoPhotoText" 
+                            Padding="10" />
+                    </Grid>
+                </Frame>
+
+                <!-- Clothing Type Picker - Fluent Style -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Clothing Type" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        TextColor="#333333" />
+
+                    <Frame CornerRadius="8" 
+                        Padding="0" 
+                        HasShadow="False" 
+                        BackgroundColor="#F9F9F9">
+                        <Picker x:Name="ClothingTypePicker" 
+                            TextColor="#333333" 
+                            Title="Select type"
+                            TitleColor="#999999">
+                            <Picker.Items>
+                                <x:String>Shirt</x:String>
+                                <x:String>Pants</x:String>
+                                <x:String>Dress</x:String>
+                                <x:String>Skirt</x:String>
+                                <x:String>Jacket</x:String>
+                                <x:String>Shoes</x:String>
+                                <x:String>Accessories</x:String>
+                                <x:String>Other</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Tags Entry -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Tags (comma-separated)" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        TextColor="#333333" />
+
+                    <Frame CornerRadius="8" Padding="12" HasShadow="False" BackgroundColor="#F9F9F9">
+                        <Entry x:Name="TagsEntry" 
+                            Placeholder="e.g., summer, casual, blue" 
+                            PlaceholderColor="#CCCCCC" 
+                            TextColor="#333333"
+                            BackgroundColor="Transparent"
+                            FontSize="14" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Notes Entry -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Notes" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        TextColor="#333333" />
+
+                    <Frame CornerRadius="8" 
+                        Padding="12" 
+                        HasShadow="False" 
+                        BackgroundColor="#F9F9F9">
+                        <Editor x:Name="NotesEntry" 
+                            Placeholder="Add notes about this item..." 
+                            PlaceholderColor="#CCCCCC" 
+                            TextColor="#333333" 
+                            BackgroundColor="Transparent" 
+                            HeightRequest="80" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Status Message -->
+                <Label x:Name="StatusLabel" 
+                    Text="" 
+                    TextColor="Green" 
+                    FontSize="12" 
+                    IsVisible="False" 
+                    FontAttributes="Bold" 
+                    HorizontalOptions="Center" />
+
+                <!-- Loading Indicator -->
+                <ActivityIndicator x:Name="UploadIndicator" 
+                    IsRunning="False" 
+                    IsVisible="False" 
+                    Color="#D4AF37" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Action Buttons Grid -->
+        <Grid Grid.Row="2" 
+            Padding="12" 
+            ColumnDefinitions="*,*,*" 
+            BackgroundColor="#FFFFFF">
+            <!-- Camera Button - Gold Primary -->
+            <Button Grid.Column="0" 
+                x:Name="CameraButton" 
+                Text="📷" 
+                BackgroundColor="#D4AF37" 
+                TextColor="#FFFFFF" 
+                Clicked="OnTakePhotoClicked" 
+                FontAttributes="Bold" 
+                CornerRadius="8" 
+                Padding="10" 
+                FontSize="18" 
+                Margin="2" />
+
+            <!-- Gallery Button - Silver Secondary -->
+            <Button Grid.Column="1" 
+                x:Name="GalleryButton" 
+                Text="🖼️" 
+                BackgroundColor="#C0C0C0" 
+                TextColor="#333333" 
+                Clicked="OnSelectFromGalleryClicked" 
+                FontAttributes="Bold" 
+                CornerRadius="8" 
+                Padding="10" 
+                FontSize="18" 
+                Margin="2" />
+
+            <!-- Cancel Button -->
+            <Button Grid.Column="2" 
+                x:Name="CancelButton" 
+                Text="✕" 
+                BackgroundColor="#E8E8E8" 
+                TextColor="#333333" 
+                Clicked="OnCancelClicked" 
+                FontAttributes="Bold" 
+                CornerRadius="8" 
+                Padding="10" 
+                FontSize="18" 
+                Margin="2" />
+        </Grid>
+
+        <!-- Upload Button - Primary Action -->
+        <Button Grid.Row="2" 
+            x:Name="UploadButton" 
+            Text="✓ Upload to Wardrobe" 
+            BackgroundColor="#D4AF37" 
+            TextColor="#FFFFFF" 
+            Clicked="OnUploadClicked" 
+            IsEnabled="False" 
+            Padding="15,14" 
+            FontAttributes="Bold" 
+            FontSize="14" 
+            CornerRadius="8" 
+            Margin="12,70,12,12" 
+            VerticalOptions="End" />
+    </Grid>
+</ContentPage>
