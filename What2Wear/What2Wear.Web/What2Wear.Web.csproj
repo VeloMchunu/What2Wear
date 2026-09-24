@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>28198841-d200-4b98-b8c8-9c467a1a1199</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,9 +18,14 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.2.1" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.8" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
