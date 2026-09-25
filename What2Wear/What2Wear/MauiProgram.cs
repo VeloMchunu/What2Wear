@@ -31,7 +31,7 @@ namespace What2Wear
 #endif
                 var client = new HttpClient(handler)
                 {
-                    BaseAddress = new Uri("https://localhost:7118") // Change to your API URL
+                    BaseAddress = new Uri("https://localhost:7118/") // Change to your API URL
                 };
                 return client;
             });
