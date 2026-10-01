@@ -55,7 +55,7 @@ namespace What2Wear
                 {
                     _apiClient.SetToken(response.Token);
                     ErrorLabel.IsVisible = false;
-                    await Shell.Current.GoToAsync("photos");
+                    await Shell.Current.GoToAsync("///photos");
                 }
                 else
                 {
@@ -76,7 +76,7 @@ namespace What2Wear
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("login");
+            await Shell.Current.GoToAsync("///login");
         }
     }
 }

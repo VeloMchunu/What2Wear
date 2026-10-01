@@ -99,7 +99,7 @@ namespace What2Wear
 
                     // Reset form after 2 seconds
                     await Task.Delay(2000);
-                    await Shell.Current.GoToAsync("photos");
+                    await Shell.Current.GoToAsync("///photos");
                 }
                 else
                 {

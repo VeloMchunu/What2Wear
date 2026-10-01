@@ -1,47 +1,55 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 using What2Wear.Services;
 using What2Wear.Shared.Services;
-using CommunityToolkit.Maui;
 
 namespace What2Wear
 {
     public static class MauiProgram
     {
+        // Must match the port in What2Wear.Web launchSettings.json (https profile)
+        private const int ApiPort = 7118;
+
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .UseMauiCommunityToolkit() // Add Community Toolkit with Fluent UI support
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Bold.ttf", "OpenSansBold");
                 });
 
-            // Add device-specific services used by the What2Wear.Shared project
+            // Device-specific services used by What2Wear.Shared
             builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
-            // Add HTTP client for API communication
-            builder.Services.AddSingleton<HttpClient>(serviceProvider =>
+            // Platform-specific API settings
+            builder.Services.AddSingleton(_ => new ApiSettings(ResolveBaseUrl()));
+
+            // HTTP client
+            builder.Services.AddSingleton<HttpClient>(sp =>
             {
+                var settings = sp.GetRequiredService<ApiSettings>();
+
                 var handler = new HttpClientHandler();
 #if DEBUG
-                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                handler.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
 #endif
-                var client = new HttpClient(handler)
+                return new HttpClient(handler)
                 {
-                    BaseAddress = new Uri("https://localhost:7118/") // Change to your API URL
+                    BaseAddress = new Uri(settings.BaseUrl),
+                    Timeout = TimeSpan.FromSeconds(15)
                 };
-                return client;
             });
 
-            // Add services
+            // Services
             builder.Services.AddSingleton<Services.ISecureStorage, Services.SecureStorageImpl>();
             builder.Services.AddSingleton<IApiClient, ApiClient>();
             builder.Services.AddSingleton<IOutfitSuggestionService, OutfitSuggestionService>();
 
-            // Add Pages
+            // Pages
             builder.Services.AddSingleton<AppShell>();
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<SignupPage>();
@@ -58,5 +66,26 @@ namespace What2Wear
 
             return builder.Build();
         }
+
+        private static string ResolveBaseUrl()
+        {
+#if DEBUG
+            // Android emulator reaches the host PC via 10.0.2.2
+            if (DeviceInfo.Platform == DevicePlatform.Android)
+            {
+                return DeviceInfo.DeviceType == DeviceType.Virtual
+                    ? $"https://10.0.2.2:{ApiPort}/"
+                    : $"https://192.168.0.100:{ApiPort}/"; // physical device: your PC's LAN IP
+            }
+
+            // iOS simulator, MacCatalyst and Windows share the host's localhost
+            // (physical iOS device also needs the LAN IP)
+            return $"https://localhost:{ApiPort}/";
+#else
+            return "https://your-production-api.example.com/";
+#endif
+        }
     }
+
+    public record ApiSettings(string BaseUrl);
 }

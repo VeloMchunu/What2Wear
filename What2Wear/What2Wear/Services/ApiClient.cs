@@ -1,8 +1,9 @@
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using What2Wear.Shared.Models;
-using Microsoft.Maui;
-using Microsoft.Extensions.Logging;
 
 namespace What2Wear.Services
 {
@@ -33,6 +34,10 @@ namespace What2Wear.Services
             _logger = logger;
         }
 
+        //private static readonly JsonSerializerOptions JsonOptions = new()
+        //{
+        //    PropertyNameCaseInsensitive = true
+        //};
         public async Task<AuthResponse> SignupAsync(SignupRequest request)
         {
             try
@@ -50,15 +55,47 @@ namespace What2Wear.Services
             }
         }
 
+        //public async Task<AuthResponse> LoginAsync(LoginRequest request)
+        //{
+        //    try
+        //    {
+        //        var json = JsonSerializer.Serialize(request);
+        //        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        //        var response = await _httpClient.PostAsync("api/auth/login", content);
+        //        var responseContent = await response.Content.ReadAsStringAsync();
+        //        return JsonSerializer.Deserialize<AuthResponse>(responseContent) ?? new AuthResponse { Success = false, Message = "Invalid response" };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Login error");
+        //        return new AuthResponse { Success = false, Message = "Login failed: " + ex.Message };
+        //    }
+        //}
+        //public async Task<AuthResponse> LoginAsync(LoginRequest request)
+        //{
+        //    try
+        //    {
+        //        var json = JsonSerializer.Serialize(request);
+        //        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        //        var response = await _httpClient.PostAsync("api/auth/login", content);
+        //        var responseContent = await response.Content.ReadAsStringAsync();
+        //        return JsonSerializer.Deserialize<AuthResponse>(responseContent, JsonOptions)
+        //               ?? new AuthResponse { Success = false, Message = "Invalid response" };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Login error");
+        //        return new AuthResponse { Success = false, Message = "Login failed: " + ex.Message };
+        //    }
+        //}
+
         public async Task<AuthResponse> LoginAsync(LoginRequest request)
         {
             try
             {
-                var json = JsonSerializer.Serialize(request);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("api/auth/login", content);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<AuthResponse>(responseContent) ?? new AuthResponse { Success = false, Message = "Invalid response" };
+                var response = await _httpClient.PostAsJsonAsync("api/auth/login", request);
+                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+                return result ?? new AuthResponse { Success = false, Message = "Invalid response" };
             }
             catch (Exception ex)
             {
@@ -66,7 +103,6 @@ namespace What2Wear.Services
                 return new AuthResponse { Success = false, Message = "Login failed: " + ex.Message };
             }
         }
-
         public async Task<PhotoUploadResponse> UploadPhotoAsync(Stream fileStream, string fileName, PhotoUploadRequest request)
         {
             try

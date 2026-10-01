@@ -65,7 +65,7 @@ namespace What2Wear
 
         private async void OnCameraClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("capture");
+            await Shell.Current.GoToAsync("///capture");
         }
 
         private async void OnLogoutClicked(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace What2Wear
             if (confirm)
             {
                 _apiClient.SetToken(null);
-                await Shell.Current.GoToAsync("login");
+                await Shell.Current.GoToAsync("///login");
             }
         }
     }
